@@ -1,2 +1,3 @@
 #!/bin/bash
-find . -empty -printf '%f\n'
+find . -type d -empty -print | sed 's/.\///' && find . -type f -empty -print | sed 's/.\///'
+
