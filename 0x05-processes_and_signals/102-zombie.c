@@ -1,6 +1,6 @@
 /*
  * File: 102-zombie.c
- * Auth: caleb kech
+ * Auth: badrnej
  */
 
 #include <stdio.h>
