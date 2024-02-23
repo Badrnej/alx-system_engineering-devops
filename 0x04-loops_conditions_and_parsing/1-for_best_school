@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#loop to print Best School
+
+for ((n=1; n<=10; n++ )) 
+do
+    echo "Best School"
+done

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#while loop to print Best School 10 times and say hi on count 9
+
+count=0
+while [ $count -lt 10 ];
+do
+    if [ $count -eq 9 ];
+    then
+        echo "Hi"
+    fi
+    echo "Best School"
+    (( count++ ))
+done
