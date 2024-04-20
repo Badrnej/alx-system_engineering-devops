@@ -1,4 +1,4 @@
-# puppet apply 1-install_a_package.pp
+# Using Puppet, install flask from pip3
 
 package { 'python3-flask':
   ensure => '2.1.0',
