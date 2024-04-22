@@ -1,36 +1,39 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Configures a new ubuntu machine by installing
+# Nginx where it should be listening on port 80
+# Serve a page that would return a Hello World string
+#
 
-# Install nginx if not already installed
-apt-get update
-apt-get install -y nginx
+echo -e "Updating and installing Nginx.\n"
+sudo apt-get update -y -qq && \
+	 sudo apt-get install nginx -y
 
-# Configure custom 404 page
-echo "
-server {
-    listen 80;
-    listen [::]:80;
+echo -e "\nSetting up some minor stuff.\n"
 
-    server_name _;
+# starting nginx service
+sudo service nginx start
 
-    error_page 404 /404.html;
-    location = /404.html {
-        root /usr/share/nginx/html;
-        internal;
-    }
+# allowing nginx on firewall
+sudo ufw allow 'Nginx HTTP'
 
-    location / {
-        return 404 'Ceci n\'est pas une page\n';
-    }
+# Give the user ownership to website files for easy editing
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
 
-    # Additional configuration
-    # ...
-}" > /etc/nginx/sites-available/default
+# Backup default index
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
 
-# Create the custom 404 page
-echo "Ceci n'est pas une page" > /usr/share/nginx/html/404.html
+# Creating new index
+echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
 
-# Restart nginx
-/etc/init.d/nginx reload
+# Setting up /redirect_me to a youtube video
+sudo sed -i '24i\	rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 
-# Script complete
+# Set up a 404 page
+echo "Ceci n'est pas une page" >> /var/www/html/error_404.html
+sudo sed -i '25i\	error_page 404 /error_404.html;' /etc/nginx/sites-available/default
 
+# Restarting nginx
+sudo service nginx restart
+
+echo -e "\nCompleted.\n"
