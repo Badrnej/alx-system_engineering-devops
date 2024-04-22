@@ -12,3 +12,4 @@ echo 'Hello World!' > /var/www/html/index.nginx-debian.html
 
 # Démarre le service Nginx
 service nginx start
+
