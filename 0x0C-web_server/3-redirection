@@ -1,45 +1,49 @@
 #!/usr/bin/env bash
-# Configuring Nginx server so that /redirect_me is redirecting to another page.
 # Script for configuring Nginx server to redirect /redirect_me to another page
-# #!/usr/bin/env bash
+
 # Update package lists
-# Installs, configures, and starts the server
-# Install Nginx
-# Allow Nginx through firewall
-# Create directory for website files
-# Set permissions for the web directory
-# Create a simple index page
-# Nginx server configuration
-# Add the server configuration to Nginx default site configuration
-# Restart Nginx to apply changes
-
-
 apt-get update
+
+# Install Nginx
 apt-get -y install nginx
+
+# Allow Nginx through firewall
 sudo ufw allow 'Nginx HTTP'
+
+# Create directory for website files
 mkdir -p /var/www/html/
+
+# Set permissions for the web directory
 sudo chmod -R 755 /var/www
+
+# Create a simple index page
 echo 'Hello World!' > /var/www/html/index.html
-SERVER_CONFIG=\
-	"server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
-	root /var/www/html;
-	index index.html index.htm index.nginx-debian.html;
-	server_name _;
-	location / {
-	try_files \$uri \$uri/ =404;
+
+# Nginx server configuration
+SERVER_CONFIG="server {
+listen 80 default_server;
+listen [::]:80 default_server;
+root /var/www/html;
+index index.html index.htm index.nginx-debian.html;
+server_name _;
+
+location / {
+try_files \$uri \$uri/ =404;
 }
-if (\$request_filename ~ redirect_me){
-	rewrite ^ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
+
+location /redirect_me {
+return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
 }
+
 error_page 404 /404.html;
-location = /404.html{
+location = /404.html {
 internal;
 }
 }"
 
-bash -c "echo -e '$SERVER_CONFIG' > /etc/nginx/sites-enabled/default"
+				# Add the server configuration to Nginx default site configuration
+				bash -c "echo '$SERVER_CONFIG' > /etc/nginx/sites-enabled/default"
 
-sudo service nginx restart
+				# Restart Nginx to apply changes
+				sudo service nginx restart
 
