@@ -8,4 +8,4 @@ Test the Setup: Write a script to test that HAProxy is properly load balancing r
 Install HAProxy: Write a script to install HAProxy on a new Ubuntu server.
 Configure HAProxy: Write a script to configure HAProxy for load balancing between your web servers.
 Add Web Servers: Write a script to add your new web servers to the HAProxy configuration.
-Test the Setup: Write a script to test that HAProxy is properly load balancing requests between your web servers.
+Test the Setup: Write a script to test that HAProxy is properly load balancing requests between your web servers..
