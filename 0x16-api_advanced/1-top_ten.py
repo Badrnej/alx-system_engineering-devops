@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """
-file of number of subscribers method
+file of number of subscribers
 """
 import requests
 
 
 def number_of_subscribers(subreddit):
     """
-    number of subscribers method
+    number of subscribers
     """
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
     headers = {'User-Agent': 'Mozilla/5.0'}
