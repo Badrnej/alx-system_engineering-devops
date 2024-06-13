@@ -1,0 +1,15 @@
+server {
+    listen 80;
+    server_name yugioh.tech;
+
+    location /airbnb-onepage/ {
+        proxy_pass http://localhost:5000;
+        include /etc/nginx/proxy_params;
+        proxy_redirect off;
+    }
+    location /number_odd_or_even/ {
+        proxy_pass http://localhost:5001;
+        include /etc/nginx/proxy_params;
+        proxy_redirect off;
+    }
+}
